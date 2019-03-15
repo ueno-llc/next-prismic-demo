@@ -1,0 +1,29 @@
+@import '~styles/config';
+
+.profiles {
+  margin-top: 75px;
+  margin-bottom: 75px;
+
+  @media (min-width: $min-720) {
+    margin-top: 150px;
+    margin-bottom: 200px;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__title {
+    @include heading;
+  }
+
+  &__list {
+    @include grid-row;
+
+    margin-top: $gutter * 1.5;
+
+    @media (min-width: $min-720) {
+      margin-top: $gutter * 2.5;
+    }
+  }
+}

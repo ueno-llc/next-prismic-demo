@@ -1,0 +1,36 @@
+@import '~styles/config';
+
+.heading {
+  &__container {
+    @include container;
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
+
+    @media (min-width: $min-desktop) {
+      @include grid-col(6);
+      @include grid-offset-left(3);
+    }
+  }
+
+  h1 {
+    @include h1;
+    margin-bottom: 0;
+  }
+
+  &.isLoading h1 { // stylelint-disable-line
+    width: 100%;
+    height: 1em;
+    @include loadingText;
+  }
+}

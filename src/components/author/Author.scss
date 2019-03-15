@@ -1,0 +1,71 @@
+@import '~styles/config';
+
+.author {
+  &__container {
+    @include container;
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
+
+    @media (min-width: $min-desktop) {
+      @include grid-col(6);
+      @include grid-offset-left(3);
+    }
+  }
+
+  &__block {
+    display: flex;
+    margin: $gutter 0 $gutter * 1.5;
+  }
+
+  &__image {
+    flex: 0 0 auto;
+
+    margin-right: 1em;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__paragraph {
+    @include reset-paragraph;
+    @include responsive-font(14, 16);
+    font-weight: 200;
+
+    &:first-child {
+      font-weight: 400;
+    }
+  }
+
+  &.isLoading &__image {
+    @include loadingText;
+  }
+
+  &.isLoading &__paragraph {
+    @include loadingText;
+    margin-bottom: 0.5rem;
+    height: 1.5rem;
+    width: 100px;
+
+    &:nth-child(2) {
+      width: 150px;
+    }
+  }
+}

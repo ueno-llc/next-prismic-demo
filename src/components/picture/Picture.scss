@@ -1,0 +1,10 @@
+@import '~styles/config';
+
+.picture {
+  display: block;
+  margin: 0 auto;
+
+  > img { // stylelint-disable-line
+    margin: auto;
+  }
+}

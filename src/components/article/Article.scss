@@ -1,0 +1,11 @@
+@import '~styles/config';
+
+.article {
+  @include segment($padding-top: 90px, $padding-top-mobile: 30px);
+
+  &__slices {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

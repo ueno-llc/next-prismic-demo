@@ -1,0 +1,24 @@
+@import '~styles/config';
+
+.cta {
+  @include segment(0);
+
+  text-align: center;
+
+  &__container {
+    @include container;
+  }
+
+  p {
+    @include reset-heading;
+    @include responsive-font(20, 52);
+
+    margin-bottom: 40px;
+
+    font-family: $font-family-heading;
+    font-weight: 200;
+    letter-spacing: -0.025em;
+    line-height: (38/32);
+    color: #000;
+  }
+}

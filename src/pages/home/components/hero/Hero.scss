@@ -1,0 +1,102 @@
+@import '~styles/config';
+
+.hero {
+  position: relative;
+
+  min-height: 425px;
+
+  background: #93cfe3;
+
+  @media (min-width: $min-1080) {
+    min-height: 600px;
+  }
+
+  &__container {
+    @include container;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &__top {
+    padding-top: $gutter * 2;
+
+    @media (min-width: $min-tablet) {
+      padding-top: percentage($segment-padding / $page-limit);
+    }
+
+    @media (min-width: $page-limit) {
+      padding-top: $segment-padding;
+    }
+  }
+
+  &__row {
+    @include grid-row;
+
+    width: 100%;
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+  }
+
+  &__pagination {
+    @include reset-list;
+
+    display: flex;
+
+    position: absolute;
+    bottom: $gutter * 2;
+
+    @media (min-width: $min-tablet) {
+      bottom: percentage($segment-padding / $page-limit);
+    }
+
+    @media (min-width: $page-limit) {
+      bottom: $segment-padding;
+    }
+  }
+
+  &__item {
+    margin-right: 20px;
+
+    width: 60px;
+    height: 2px;
+
+    cursor: pointer;
+
+    background-color: rgba(#fff, 0.4);
+
+    transition: background-color $transition-enter;
+
+    @media (min-width: $min-720) {
+      width: 80px;
+    }
+
+    &:hover,
+    &.active {
+      background-color: #fff;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+
+      display: block;
+
+      position: relative;
+
+      width: 100%;
+      height: 10px;
+    }
+
+    &::before {
+      top: -10px;
+    }
+
+    &::after {
+      top: -8px;
+    }
+  }
+}

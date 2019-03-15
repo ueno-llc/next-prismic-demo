@@ -1,0 +1,78 @@
+@import '~styles/config';
+
+.footer {
+  display: block;
+
+  margin: 0;
+  padding: $gutter * 3 0 $gutter * 3;
+
+  background-color: #fafafa;
+
+  @media (min-width: $min-420) {
+    padding: $gutter * 3 0 $gutter * 6;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    padding: $gutter 0;
+  }
+
+  &__row {
+    @include grid-row;
+    flex-direction: column;
+
+    @media (min-width: $min-420) {
+      flex-direction: row;
+    }
+  }
+
+  &__logo {
+    @include grid-col(6);
+
+    margin-bottom: $gutter;
+
+    @media (min-width: $min-420) {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: $min-720) {
+      @include grid-col(8);
+    }
+  }
+
+  &__search {
+    margin-top: 30px;
+
+    max-width: 200px;
+  }
+
+  &__navigation {
+    @include grid-col(2);
+  }
+
+  &__social {
+    @include grid-col(2);
+  }
+
+  &__list {
+    @include reset-list;
+  }
+
+  &__item {
+    margin-bottom: 5px;
+
+    @media (min-width: $min-420) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__link {
+    @include reset-anchor;
+  }
+}

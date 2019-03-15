@@ -3,8 +3,6 @@
 .header {
   display: block;
 
-  margin: 0 0 $gutter;
-
   background-color: #fff;
 
   &__container {
@@ -16,8 +14,6 @@
     align-items: center;
 
     padding: $gutter 0;
-
-    border-bottom: 1px solid #ccc;
   }
 
   &__logo {

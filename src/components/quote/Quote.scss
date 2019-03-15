@@ -1,0 +1,49 @@
+@import '~styles/config';
+
+.quote {
+  @include responsive-font(20, 36);
+  line-height: 1.4;
+
+  &__container {
+    @include container;
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
+
+    @media (min-width: $min-desktop) {
+      @include grid-col(6);
+      @include grid-offset-left(3);
+    }
+  }
+
+  &__block {
+    @include reset-all;
+    margin: 1em 0;
+
+    @media (min-width: $min-mobile) {
+      margin: 1em;
+    }
+  }
+
+  p { // stylelint-disable-line
+    margin: 0;
+    font-family: $font-family-heading;
+    color: #9ea0a6;
+    font-weight: 100;
+    font-style: italic;
+  }
+
+  p + p { // stylelint-disable-line
+    margin-top: 1.4em;
+  }
+}

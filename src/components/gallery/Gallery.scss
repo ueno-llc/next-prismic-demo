@@ -1,0 +1,29 @@
+@import '~styles/config';
+
+.gallery {
+  @include segment($padding-top: 90px, $padding-top-mobile: 30px);
+
+  &__container {
+    @include container;
+  }
+
+  &__title {
+    text-align: left;
+  }
+
+  &__name {
+    @include h1;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+
+    margin: 50px 0;
+  }
+
+  &__item {
+    width: 25%;
+  }
+
+}

@@ -7,17 +7,19 @@ import s from './Button.scss';
 interface IButtonProps {
   to?: string;
   disabled?: boolean;
+  stroke?: boolean;
+  large?: boolean;
   children: React.ReactNode;
   className?: string;
   [key: string]: any;
 }
 
-export const Button = ({ to, children, className, disabled, ...rest }: IButtonProps) => {
+export const Button = ({ to, children, className, disabled, large, stroke, ...rest }: IButtonProps) => {
   const passProps = { ...rest };
   const isLink = (typeof to !== 'undefined');
   const isExternal = isLink && /^((https?:)?\/\/|[0-9a-zA-Z]+:)/.test(to || '');
 
-  passProps.className = s(s.button, className, { disabled });
+  passProps.className = s(s.button, className, { disabled, large, stroke });
 
   if (isExternal) {
     return <a target="_blank" rel="noopener noreferrer" href={to} {...passProps}>{children}</a>;

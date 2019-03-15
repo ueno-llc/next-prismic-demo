@@ -1,0 +1,38 @@
+@import '~styles/config';
+
+.contact {
+  &__container {
+    @include container;
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
+  }
+
+  &__block {
+    @include segment;
+  }
+
+  &__response {
+    text-align: center;
+
+    &Title {
+      @include heading(20, 52);
+
+      color: $color-success;
+    }
+
+    &Text {
+      @include copy(16, 20);
+    }
+  }
+}

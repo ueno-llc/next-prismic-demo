@@ -1,0 +1,40 @@
+@import '~styles/config';
+
+.profile {
+  @include grid-col;
+
+  margin-bottom: 40px;
+
+  @media (min-width: $min-600) {
+    @include grid-col(6);
+  }
+
+  @media (min-width: $min-720) {
+    @include grid-col(4);
+
+    margin-bottom: 80px;
+  }
+
+  &__mask {
+    margin-bottom: 20px;
+
+    width: 100%;
+    max-height: 490px;
+
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__name {
+    @include heading(18, 24);
+
+    margin-bottom: 8px;
+  }
+
+  &__description {
+    @include copy(16, 18);
+  }
+}

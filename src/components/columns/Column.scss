@@ -1,0 +1,16 @@
+@import '~styles/config';
+
+.column {
+  position: relative;
+
+  &__title {
+    @include h6;
+    margin-bottom: 0.5em;
+  }
+
+  &__text {
+    p {
+      @include copy;
+    }
+  }
+}

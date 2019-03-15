@@ -121,12 +121,80 @@
 }
 
 // change below to reflect your project
-@mixin heading() {
-  // per project
+@mixin heading($min: (strip-unit($font-size) * 2), $max: (strip-unit($font-size) * 3.375)) {
+  @include reset-heading;
+  @include responsive-font($min, $max);
+
+  $arbitrary-copy-margin: 27;
+  margin-bottom: ($arbitrary-copy-margin/$max) * 1em;
+
+  font-family: $font-family-heading;
+  font-weight: 200;
+  letter-spacing: -0.048em;
+  line-height: 1.1;
+
+  color: $color-font;
 }
 
-@mixin subheading() {
-  // per project
+@mixin subheading($min: (strip-unit($font-size) * 2), $max: (strip-unit($font-size) * 3.375)) {
+  @include reset-heading;
+  @include responsive-font($min, $max);
+
+  $arbitrary-copy-margin: 27;
+  margin-bottom: ($arbitrary-copy-margin/$max) * 1em;
+
+  font-family: $font-family-heading;
+  font-weight: 100;
+  letter-spacing: -0.048em;
+  line-height: 1.1;
+
+  color: $color-light;
+}
+
+@mixin copy($min: strip-unit($font-size), $max: (strip-unit($font-size) + 4)) {
+  @include reset-all;
+  @include responsive-font($min, $max);
+
+  $arbitrary-copy-margin: 26;
+
+  margin-bottom: (strip-unit($arbitrary-copy-margin) / strip-unit($max)) * 1em;
+
+  font-family: $font-family;
+  font-weight: 200;
+  letter-spacing: 0.025em;
+  line-height: 1.6;
+
+  color: $color-font;
+}
+
+@mixin h1 {
+  @include heading;
+  letter-spacing: -0.048em;
+}
+
+@mixin h2($min: 26, $max: 42) {
+  @include heading($min, $max);
+  letter-spacing: -0.048em;
+}
+
+@mixin h3($min: 24, $max: 38) {
+  @include heading($min, $max);
+  letter-spacing: -0.025em;
+}
+
+@mixin h4($min: 22, $max: 34) {
+  @include heading($min, $max);
+  letter-spacing: -0.025em;
+}
+
+@mixin h5($min: 18, $max: 30) {
+  @include heading($min, $max);
+  letter-spacing: -0.025em;
+}
+
+@mixin h6($min: 16, $max: 26) {
+  @include heading($min, $max);
+  letter-spacing: -0.025em;
 }
 
 // html.js / html.no-js will not compile?!
@@ -166,4 +234,19 @@
       will-change: opacity;
     }
   }
+}
+
+@mixin loadingText {
+  display: inline-block;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  color: transparent;
+  position: relative;
+  margin-bottom: 0.3em;
 }

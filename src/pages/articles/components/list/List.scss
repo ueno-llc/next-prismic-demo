@@ -1,0 +1,84 @@
+@import '~styles/config';
+
+.list {
+  @include segment;
+
+  &__container {
+    @include container;
+  }
+
+  &__list {
+    @include reset-list;
+    @include grid-row;
+  }
+
+  &__item {
+    @include grid-col;
+    display: flex;
+    align-items: stretch;
+    margin-bottom: $gutter * 2;
+
+    @media (min-width: $min-tablet) {
+      width: 50%;
+    }
+
+    @media (min-width: $min-desktop) {
+      width: percentage(1/3);
+    }
+  }
+
+  &__block {
+    @include reset-anchor;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &__top {
+    flex: 1 1 auto;
+  }
+
+  &__middle {
+    flex: 0 0 auto;
+
+    @media (min-width: $min-tablet) {
+      flex: 0 0 230px;
+    }
+  }
+
+  &__bottom {
+    flex: 0 0 auto;
+  }
+
+  &__image {
+    margin-bottom: $gutter;
+
+    img { // stylelint-disable-line
+      min-width: 100%;
+    }
+  }
+
+  &.isLoading &__top {
+    width: 100%;
+  }
+
+  &.isLoading &__image {
+    width: 100%;
+    height: 300px;
+    background-color: #eee;
+  }
+
+  &__title {
+    @include heading(20, 26);
+  }
+
+  &.isLoading &__title {
+    width: 100%;
+    height: 1em;
+    background-color: #eee;
+  }
+
+  &__description {
+    @include copy(16, 18);
+  }
+}

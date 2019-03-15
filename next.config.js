@@ -10,8 +10,7 @@ module.exports = withTypescript(
       localIdentName: "[local]___[hash:base64:5]",
     },
     webpack(config, options) {
-      const classNamesLoader = require.resolve('classnames-loader');
-
+      const classNamesLoader = require.resolve('./classnames-loader');
       const styleRules = config.module.rules.filter(rule =>
         rule.test.test('file.scss') || rule.test.test('file.sass'));
 

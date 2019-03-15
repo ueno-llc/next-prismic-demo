@@ -1,0 +1,52 @@
+@import '~styles/config';
+
+.input {
+  position: relative;
+
+  width: 100%;
+
+  &__field {
+    @include reset-input;
+    @include responsive-font(16, 18);
+
+    display: block;
+    width: 100%;
+
+    line-height: (50/18);
+
+    border-bottom: 1px solid rgba($color-primary, 0.3);
+  }
+
+  &--multiline &__field {
+    padding: 0.8em 0;
+    height: 200px;
+
+    line-height: (24/18);
+
+    resize: none;
+  }
+
+  &__label {
+    @include responsive-font(14, 16);
+
+    position: absolute;
+    bottom: -2.6em;
+    opacity: 0;
+    width: 100%;
+    line-height: (50/18);
+
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: 0;
+    color: $color-light;
+
+    transform: translateY(-0.8em);
+    transition: transform 0.2s, opacity 0.2s;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,176 @@
+@import '~styles/config';
+
+.articles {
+  @include segment;
+
+  &__container {
+    @include container;
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__header {
+    @include grid-col;
+
+    margin-bottom: $gutter * 2;
+
+    &Title {
+      @include h2;
+      margin-bottom: 0;
+
+      &:last-of-type {
+        @include subheading(26, 42);
+      }
+    }
+  }
+
+  &__list {
+    @include reset-list;
+  }
+
+  &__item {
+    @include grid-col;
+
+    margin-bottom: 40px;
+  }
+
+  &__link {
+    @include reset-anchor;
+
+    display: block;
+
+    position: relative;
+
+    &:hover {
+      &::before {
+        width: 100%;
+
+        transition: $transition-leave;
+      }
+
+      .articles__description {
+        color: #000;
+
+        transition: $transition-leave;
+      }
+    }
+
+    &::before {
+      content: '';
+
+      display: block;
+
+      position: absolute;
+      bottom: 0;
+
+      width: 0%;
+      height: 1px;
+
+      background-color: #333;
+
+      transition: width $transition-enter;
+    }
+
+    &::after {
+      content: '';
+
+      display: block;
+
+      margin-top: 40px;
+
+      width: 100%;
+      height: 1px;
+
+      background-color: #ebebeb;
+    }
+  }
+
+  &__date {
+    @include reset-all;
+    @include responsive-font(12, 14);
+
+    margin-bottom: 8px;
+
+    color: $color-content;
+    font-weight: 200;
+
+    @media (min-width: $min-720) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__inner {
+    @include grid-row;
+    flex-direction: column;
+
+    @media (min-width: $min-720) {
+      flex-direction: row;
+    }
+  }
+
+  &__lead {
+    @include grid-col;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 12px;
+
+    @media (min-width: $min-480) {
+      @include grid-col(10);
+
+      padding-right: $gutter * 2;
+    }
+
+    @media (min-width: $min-720) {
+      @include grid-col(5);
+
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    @include heading(18, 32);
+  }
+
+  &__author {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+  }
+
+  &__description {
+    @include copy(14, 20);
+    @include grid-col;
+    @include grid-offset-right;
+
+    transition: color $transition-enter;
+
+    @media (min-width: $min-480) {
+      @include grid-col(8);
+    }
+
+    @media (min-width: $min-720) {
+      @include grid-col(5);
+    }
+  }
+
+  &__button {
+    @include responsive-font(12, 14);
+    @include grid-col(4);
+
+    margin-top: 20px;
+
+    color: #333;
+    font-weight: 700;
+
+    @media (min-width: $min-720) {
+      @include grid-col(1);
+
+      margin-top: 2px;
+    }
+  }
+}

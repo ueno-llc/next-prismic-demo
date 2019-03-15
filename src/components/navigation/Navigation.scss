@@ -1,0 +1,110 @@
+@import '~styles/config';
+
+.navigation {
+  display: flex;
+
+  &__list {
+    @include reset-list;
+
+    display: flex;
+    align-items: stretch;
+
+    margin: 0 -($gutter / 2);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    padding: 0 ($gutter / 3);
+
+    @media (min-width: $min-360) {
+      padding: 0 ($gutter / 2);
+    }
+  }
+
+  &__link {
+    @include reset-anchor;
+
+    padding: 8px 0;
+
+    font-family: $font-family;
+    font-size: 20px;
+    color: $color-default;
+
+    border-bottom: 1px solid transparent;
+
+    transition: border $transition-leave;
+
+    @media (min-width: $min-720) {
+      padding: 5px 0;
+
+      font-size: 15px;
+    }
+
+    &:hover {
+      border-color: fade($color-primary, 30%);
+
+      transition-duration: $transition-enter;
+    }
+
+    &.active {
+      border-color: $color-primary;
+    }
+  }
+
+  &__button {
+    @include reset-button;
+
+    position: relative;
+    z-index: 9001;
+
+    width: 40px;
+    height: 40px;
+
+    text-indent: -9999px;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 16px;
+      left: 10px;
+
+      width: 20px;
+      height: 2px;
+
+      background: #333;
+
+      transition: transform 0.2s ease-out;
+    }
+
+    &::after {
+      top: auto;
+      bottom: 16px;
+    }
+
+    &.isMenuOpen {
+      &::before {
+        transform: translateY(3px) rotate(135deg);
+      }
+
+      &::after {
+        transform: translateY(-3px) rotate(45deg);
+      }
+    }
+  }
+
+  &__cta {
+    position: relative;
+    top: -1px;
+
+    margin-left: $gutter * 0.5;
+
+    @media (min-width: $min-360) {
+      margin-left: $gutter;
+    }
+  }
+}

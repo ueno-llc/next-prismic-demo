@@ -1,0 +1,75 @@
+@import '~styles/config';
+
+.intro {
+  @include segment;
+  background-color: #fafafa;
+
+  &__container {
+    @include container;
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(7);
+    }
+
+    @media (min-width: $min-desktop) {
+      @include grid-col(5);
+    }
+  }
+
+  h1 {
+    @include heading;
+    margin-bottom: 0;
+  }
+
+  h2 {
+    @include subheading;
+
+    .isLoading & {
+      @include loadingText;
+    }
+  }
+
+  p {
+    @include copy;
+
+    &:last-child { // stylelint-disable-line
+      margin-bottom: 0;
+    }
+  }
+
+  &.isLoading &__col > div { // stylelint-disable-line
+    display: flex;
+    flex-flow: nowrap;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &.isLoading h1 {
+    @include loadingText;
+
+    line-height: 0.77em;
+  }
+
+  &.isLoading h2 {
+    @include loadingText;
+
+    margin-bottom: 0.8em;
+    line-height: 0.77em;
+  }
+
+  &.isLoading p {
+    @include loadingText;
+
+    margin-bottom: 1em;
+    font-size: 16px;
+    line-height: 0.9;
+  }
+}

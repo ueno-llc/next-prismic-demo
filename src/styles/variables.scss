@@ -12,15 +12,26 @@ $page-width: 1290px;
 $page-limit: $page-width + ($container-gutter-desktop * 2);
 
 // Fonts
-$font-family: 'Roboto', sans-serif;
+$font-family-tisa: 'Tisa Pro', sans-serif;
+$font-family-akagi: 'Akagi Pro', sans-serif;
+$font-family: $font-family-akagi;
+$font-family-heading: $font-family-tisa;
 $font-size: 16px;
 $font-size-min: 13px;
 $line-height: 1.5;
 
 // Colors
 $color-font: #333;
+$color-default: #333;
 $color-background: #fff;
+$color-light: #9ea0a6;
+$color-dark: #000;
+$color-pink: #aa0078;
+$color-primary: $color-dark;
 $color-placeholder: #ddd;
+$color-content: #777b85;
+$color-success: #29c188;
+$color-border-gray: #eee;
 
 // Timings
 $transition-enter: 200ms;
@@ -69,8 +80,8 @@ $min-tablet: $min-720;
 $min-desktop: $min-1080;
 
 // Segment
-$segment-padding-mobile: $gutter * 3;
-$segment-padding: 200px;
+$segment-padding-mobile: $gutter * 2;
+$segment-padding: 150px; //percentage-based segments spacing
 
 // vertically responsive breakpoints
 // might need to fine-tune these

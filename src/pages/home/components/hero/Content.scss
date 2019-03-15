@@ -1,0 +1,38 @@
+@import '~styles/config';
+
+.content {
+  @include grid-col;
+
+  color: #fff;
+  z-index: 0;
+
+  @media (min-width: $min-tablet) {
+    @include grid-col(7);
+  }
+
+  @media (min-width: $min-desktop) {
+    @include grid-col(5);
+  }
+
+  &__title {
+    @include heading;
+
+    color: inherit;
+  }
+
+  &__text {
+    p {
+      @include copy;
+      color: inherit;
+
+      &:last-child { // stylelint-disable-line
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      @include reset-anchor;
+      font-weight: 400;
+    }
+  }
+}
