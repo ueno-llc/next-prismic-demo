@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import { Query } from 'react-apollo';
 import { RichText } from 'prismic-reactjs';
 import { get, isEmpty } from 'lodash';
-import Error from 'next/error'
+import Error from 'next/error';
 
 import { aboutPage } from 'graphql/about';
 import { linkResolver } from 'utils/linkResolver';
@@ -16,19 +16,21 @@ export default () => (
   <>
     <Helmet title="About" />
 
-    <Query query={aboutPage} variables={{
-      lang: 'en-us',
-    }}>
+    <Query
+      query={aboutPage}
+      variables={{
+        lang: 'en-us',
+      }}
+    >
       {({ loading, error, data: { allAbouts } }) => {
-        if (error) return <div>Error</div>
-        const { node: page } = get(allAbouts, 'edges', [])[0] || {};
-
-        console.log('about page', page);
+        if (error) {
+          return <div>Error</div>;
+        }
+        const { node: page = {} } = get(allAbouts, 'edges', [])[0] || {};
 
         if (!page && !loading) {
-          return <Error statusCode={404} />
+          return <Error statusCode={404} />;
         }
-
 
         return (
           <>
@@ -38,22 +40,26 @@ export default () => (
               <div>{RichText.render(get(page, 'text', []), linkResolver)}</div>
             </Intro>
 
-            <Profiles
-              title={RichText.asText(get(page, 'people_title', []))}
-            >
-              {get(page, 'people', []).map(({ person }, i) => (
+            <Profiles title={RichText.asText(get(page, 'people_title', []))}>
+              {get(page, 'people', []).map(({ person }: any, i: number) => (
                 <Profile
                   key={`profile-${i}`} // eslint-disable-line
                   image={get(person, 'image.url', '')}
-                  name={!isEmpty(get(person, 'name', [])) && RichText.asText(get(person, 'name', []))}
-                  description={!isEmpty(get(person, 'bio', [])) && RichText.render(get(person, 'bio', []), linkResolver)}
+                  name={
+                    !isEmpty(get(person, 'name', [])) &&
+                    RichText.asText(get(person, 'name', []))
+                  }
+                  description={
+                    !isEmpty(get(person, 'bio', [])) &&
+                    RichText.render(get(person, 'bio', []), linkResolver)
+                  }
                 />
               ))}
             </Profiles>
 
             <Slices data={get(page, 'body', [])} />
           </>
-        )
+        );
       }}
     </Query>
   </>

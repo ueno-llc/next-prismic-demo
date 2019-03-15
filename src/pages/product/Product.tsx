@@ -1,57 +1,65 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import Error from 'next/error'
-import { NextDocumentContext } from 'next/document';
-import { Query } from 'react-apollo';
-import { get } from 'lodash';
-import { RichText } from 'prismic-reactjs';
-import { product } from 'graphql/products';
-
-import { Segment } from 'components/segment/Segment';
 import { Slices } from 'containers/slices/Slices';
+import { product } from 'graphql/products';
+import { get } from 'lodash';
+import { NextDocumentContext } from 'next/document';
+import Error from 'next/error';
+import { RichText } from 'prismic-reactjs';
+import React from 'react';
+import { Query } from 'react-apollo';
+import Helmet from 'react-helmet';
+
 import { Hero } from './components/hero/Hero';
 
 interface IProps {
   uid: string;
 }
 
-const Product = ({ uid }: IProps) => (
-  <>
-    <Helmet title="Single product" />
+const Product = ({ uid }: IProps) => {
+  if (!uid) {
+    return <Error statusCode={404} />;
+  }
 
-      <Query query={product} variables={{
+  return (
+    <>
+      <Helmet title="Single product" />
+
+      <Query
+        query={product}
+        variables={{
           uid,
           lang: 'en-us',
-        }}>
-          {({ loading, error, data: { product } }) => {
-            if (error) return <div>Error</div>
+        }}
+      >
+        {({ loading, error, data: { product } }) => {
+          if (error) {
+            return <div>Error</div>;
+          }
 
-            if (!product && !loading) {
-              return <Error statusCode={404} />
-            }
+          if (!product && !loading) {
+            return <Error statusCode={404} />;
+          }
 
-            return (
-              <>
-                <Hero
-                  image={get(product, 'hero_image', {})}
-                  name={RichText.asText(get(product, 'name', []))}
-                  description={RichText.render(get(product, 'description', []))}
-                />
+          return (
+            <>
+              <Hero
+                loading={false}
+                image={get(product, 'hero_image', {})}
+                name={RichText.asText(get(product, 'name', []))}
+                description={RichText.render(get(product, 'description', []))}
+              />
 
-                <Slices data={get(product, 'body', [])} />
-              </>
-            );
-          }}
+              <Slices data={get(product, 'body', [])} />
+            </>
+          );
+        }}
       </Query>
-  </>
-);
+    </>
+  );
+};
 
+Product.getInitialProps = async (context: NextDocumentContext) => {
+  const { uid } = context.query;
+  return { uid };
+};
 
-Product.getInitialProps = async function (context: NextDocumentContext) {
-  const { uid } = context.query
-  console.log('uid', uid);
-
-  return { uid }
-}
-
-export default Product
+export default Product;

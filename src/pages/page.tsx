@@ -5,7 +5,7 @@ import { RichText } from 'prismic-reactjs';
 import { customPage } from 'graphql/custom-page';
 import { get } from 'lodash';
 import { NextDocumentContext } from 'next/document';
-import Error from 'next/error'
+import Error from 'next/error';
 
 import { linkResolver } from 'utils/linkResolver';
 import { Slices } from 'containers/slices/Slices';
@@ -16,43 +16,55 @@ interface IProps {
   uid: string;
 }
 
-const Page = ({ uid }: IProps) => (
-  <>
-    <Helmet title="Page" />
+const Page = ({ uid }: IProps) => {
+  if (!uid) {
+    return <Error statusCode={404} />;
+  }
 
-    <Query query={customPage} variables={{
-      uid,
-      lang: 'en-us',
-    }}>
-      {({ loading, error, data: { custom_page: page } }) => {
-        if (error) return <div>Error</div>
+  return (
+    <>
+      <Helmet title="Page" />
 
-        if (!page && !loading) {
-          return <Error statusCode={404} />
-        }
+      <p>hi</p>
 
-        return (
-          <>
-            <Intro isLoading={loading}>
-              <h1>{RichText.asText(get(page, 'title', []))}</h1>
-              <h2>{RichText.asText(get(page, 'subheading', []))}</h2>
-              <p>{RichText.render(get(page, 'text', []), linkResolver)}</p>
-            </Intro>
+      <Query
+        query={customPage}
+        variables={{
+          uid,
+          lang: 'en-us',
+        }}
+      >
+        {({ loading, error, data: { custom_page: page } }) => {
+          if (error) {
+            return <div>Error</div>;
+          }
 
-            <Article>
-              <Slices data={get(page, 'body', [])} />
-            </Article>
-          </>
-        )
-      }}
-    </Query>
-  </>
-);
+          if (!page && !loading) {
+            return <Error statusCode={404} />;
+          }
 
+          return (
+            <>
+              <Intro isLoading={loading}>
+                <h1>{RichText.asText(get(page, 'title', []))}</h1>
+                <h2>{RichText.asText(get(page, 'subheading', []))}</h2>
+                <p>{RichText.render(get(page, 'text', []), linkResolver)}</p>
+              </Intro>
 
-Page.getInitialProps = async function (context: NextDocumentContext) {
-  const { uid } = context.query
-  return { uid }
-}
+              <Article>
+                <Slices data={get(page, 'body', [])} />
+              </Article>
+            </>
+          );
+        }}
+      </Query>
+    </>
+  );
+};
+
+Page.getInitialProps = async (context: NextDocumentContext) => {
+  const { uid } = context.query;
+  return { uid };
+};
 
 export default Page;

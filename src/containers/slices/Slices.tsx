@@ -1,9 +1,7 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import { get, isEmpty } from 'lodash';
-
 import { linkResolver } from 'utils/linkResolver';
-
 import { Contact } from 'components/contact/Contact';
 import { Image } from 'components/image/Image';
 import { Picture } from 'components/picture/Picture';
@@ -15,22 +13,20 @@ import { Gallery } from 'components/gallery/Gallery';
 import { Quote } from 'components/quote/Quote';
 import { Tweet } from 'components/tweet/Tweet';
 
-
-export const Slices = ({ data }: any) => (
+export const Slices = ({ data = [] }: any) => (
   <div>
     {data.map((s: any, i: number) => {
       const key = `slice-${s.type}-${i}`;
-
       switch (s.type) {
 
-        case 'gallery':
-          return (
-            <Gallery
-              key={key}
-              title={RichText.asText(get(s, 'primary.title', []))}
-              data={s.fields}
-            />
-          );
+        // case 'gallery':
+        //   return (
+        //     <Gallery
+        //       key={key}
+        //       title={RichText.asText(get(s, 'primary.title', []))}
+        //       data={s.fields}
+        //     />
+        //   );
 
           case 'profiles':
             return (
@@ -89,7 +85,7 @@ export const Slices = ({ data }: any) => (
 
           case 'tweets':
             return (
-              s.fields.map(({ tweet }) => (
+              s.fields.map(({ tweet }: any) => (
                 <Tweet
                   key={tweet.url}
                   url={tweet.url}

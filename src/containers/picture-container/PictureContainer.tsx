@@ -3,9 +3,9 @@ import { get } from 'lodash';
 
 import { Picture } from 'components/picture/Picture';
 
-interface View {
+interface IView {
   url: string;
-  alt: string
+  alt: string;
 }
 
 interface IPicture {
@@ -15,12 +15,12 @@ interface IPicture {
     width: string;
     height: string;
   };
-  desktop: View;
-  desktop_2x: View;
-  tablet: View;
-  tablet_2x: View;
-  mobile: View;
-  mobile_2x: View;
+  desktop: IView;
+  desktop_2x: IView;
+  tablet: IView;
+  tablet_2x: IView;
+  mobile: IView;
+  mobile_2x: IView;
 }
 
 interface IProps {
@@ -36,4 +36,4 @@ export const PictureContainer = ({ image }: IProps) => (
     mainView={get(image, 'desktop')}
     mainView2x={get(image, 'desktop_2x')}
   />
-)
+);
