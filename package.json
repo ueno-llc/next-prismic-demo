@@ -20,6 +20,7 @@
     "dev": "node server",
     "build": "node scripts/fragmentMatcher.js && next build",
     "start": "NODE_ENV=production node server",
+    "export": "npm run build && npm run start",
     "lint": "npm run tslint && npm run stylelint",
     "tslint": "tslint --fix 'src/**/*.{ts,tsx}' -p .",
     "stylelint": "stylelint 'src/**/*.scss' --syntax scss"
