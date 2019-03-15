@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript, NextDocumentContext } from 'next/document';
 import { Fragment } from 'react';
-import { PRISMIC_API_URL } from '../config';
+import { config } from 'utils/config';
 
 interface IProps {
   isProduction: boolean;
@@ -17,7 +17,7 @@ export default class MyDocument extends Document<IProps> {
     return {
       __html: `
         window.prismic = {
-          endpoint: '${PRISMIC_API_URL}'
+          endpoint: '${config.prismicApi}'
         }
       `
     };

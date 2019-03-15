@@ -21,12 +21,14 @@ export default () => (
     }}>
       {({ loading, error, data: { allAbouts } }) => {
         if (error) return <div>Error</div>
+        const { node: page } = get(allAbouts, 'edges', [])[0] || {};
 
-        if (!allAbouts && !loading) {
+        console.log('about page', page);
+
+        if (!page && !loading) {
           return <Error statusCode={404} />
         }
 
-        const { node: page } = get(allAbouts, 'edges', [])[0];
 
         return (
           <>

@@ -1,38 +1,64 @@
-const path = require('path');
-const withSass = require('@zeit/next-sass');
-const withTypescript = require('@zeit/next-typescript');
+// @ts-ignore
 
-module.exports = withTypescript(
-  withSass({
+require('dotenv').config();
+
+const path = require('path');
+const sass = require('@zeit/next-sass');
+const typescript = require('@zeit/next-typescript');
+const plugins = require('next-compose-plugins');
+const images = require('next-images');
+const reactSvg = require('next-react-svg');
+
+const nextConfig = {
+  serverRuntimeConfig: {
+    /*
+     * Will only be available on the server side
+     * Use `import { config } from 'utils/config';`
+     */
+  },
+
+  publicRuntimeConfig: {
+    /*
+     * Will be available on both server and client
+     * Use `import { config } from 'utils/config';`
+     */
+    prismicGraphqlApi: process.env.PRISMIC_GRAPHQL_API,
+    prismicApi: process.env.PRISMIC_API_URL,
+    prismicAccessToken: process.env.PRISMIC_ACCESS_TOKEN,
+  },
+
+  webpack(config) {
+    const classNamesLoader = require.resolve('next-classnames-loader');
+    const styleRules = config.module.rules.filter(rule => rule.test.test('file.scss') || rule.test.test('file.sass'));
+
+    styleRules.forEach(styleRule => {
+      if (styleRule.use && styleRule.use.indexOf(classNamesLoader) === -1) {
+        styleRule.use.splice(0, 0, classNamesLoader);
+      }
+    });
+
+    config.resolve = config.resolve || {};
+
+    config.resolve.modules = [
+      path.join(__dirname, 'src'),
+      path.join(__dirname, 'node_modules'),
+    ];
+
+    return config;
+  },
+};
+
+module.exports = plugins([
+  [sass, {
     cssModules: true,
     cssLoaderOptions: {
       importLoaders: 1,
       localIdentName: "[local]___[hash:base64:5]",
     },
-    webpack(config, options) {
-      const classNamesLoader = require.resolve('./classnames-loader');
-      const styleRules = config.module.rules.filter(rule =>
-        rule.test.test('file.scss') || rule.test.test('file.sass'));
+  }],
 
-      styleRules.forEach(styleRule => {
-        if (styleRule.use && styleRule.use.indexOf(classNamesLoader) === -1) {
-          styleRule.use.splice(0, 0, classNamesLoader);
-        }
-      });
+  [images, { exclude: path.resolve(__dirname, 'src/assets/svg') }],
+  [reactSvg, { include: path.resolve(__dirname, 'src/assets/svg') }],
 
-      config.resolve = config.resolve || {};
-      config.resolve.modules = [
-        path.join(__dirname, 'src'),
-        path.join(__dirname, 'node_modules'),
-      ];
-
-      config.module.rules.push({
-        test: /\.(svg)$/,
-        include: /assets\/svg/,
-        loader: require.resolve('svg-react-loader'),
-      });
-
-      return config;
-    }
-  })
-);
+  typescript,
+], nextConfig);

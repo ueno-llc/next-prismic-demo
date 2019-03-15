@@ -2,7 +2,7 @@ import { ApolloClient, NormalizedCacheObject } from 'apollo-client';
 import fetch from 'isomorphic-unfetch';
 import { PrismicLink } from 'apollo-link-prismic';
 import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
-
+import { config } from 'utils/config';
 import introspectionQueryResultData from '../../.cache/prismic.fragments.json';
 
 let apolloClient: ApolloClient<any> | null = null
@@ -21,8 +21,8 @@ function create (initialState?: NormalizedCacheObject) {
     connectToDevTools: process.browser,
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     link: PrismicLink({
-      uri: "https://ueno-starter-kit-universally-test.prismic.io/graphql",
-      accessToken: "MC5XUGRJS1NvQUFDa0FNQ3R6.77-977-977-977-977-977-977-9De-_ve-_vURp77-977-977-977-9H--_vWPvv73vv73vv73vv73vv73vv73vv70gA--_ve-_vVXvv70",
+      uri: config.prismicGraphqlApi,
+      accessToken: config.prismicAccessToken,
     }),
     cache: new InMemoryCache({ fragmentMatcher }).restore(initialState || {})
   })

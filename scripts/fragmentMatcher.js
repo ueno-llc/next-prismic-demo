@@ -1,16 +1,17 @@
+require('dotenv').config();
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const prismicApi = process.env.PRISMIC_API_URL;
+const prismicGraphqlApi = process.env.PRISMIC_GRAPHQL_API;
 
-const uri = `https://ueno-starter-kit-universally-test.prismic.io/graphql`;
-
-fetch(`https://ueno-starter-kit-universally-test.prismic.io/api`)
+fetch(prismicApi)
 .then((r) => r.json())
 .then((data) => {
   const ref = data.refs.find((r) => r.id === 'master');
   if (!ref) return;
 
-  fetch(`${uri}?query=%7B%0A%20%20__schema%20%7B%0A%20%20%20%20types%20%7B%0A%20%20%20%20%20%20possibleTypes%20%7B%0A%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20kind%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A`, {
+  fetch(`${prismicGraphqlApi}?query=%7B%0A%20%20__schema%20%7B%0A%20%20%20%20types%20%7B%0A%20%20%20%20%20%20possibleTypes%20%7B%0A%20%20%20%20%20%20%20%20name%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20kind%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A`, {
     headers: {
       'prismic-ref': ref.ref,
     },
