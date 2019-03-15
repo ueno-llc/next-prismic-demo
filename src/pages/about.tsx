@@ -15,7 +15,6 @@ import { Profile } from 'components/profiles/Profile';
 export default () => (
   <>
     <Helmet title="About" />
-
     <Query
       query={aboutPage}
       variables={{

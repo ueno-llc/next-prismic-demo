@@ -6,6 +6,17 @@ import withApolloClient from '../src/apollo/with-apollo-client';
 import AppLayout from '../src/components/app-layout/AppLayout';
 
 class App extends NextApp {
+
+  state = {
+    preview: false,
+  };
+
+  componentDidMount() {
+    this.setState({
+      preview: true,
+    });
+  }
+
   render() {
     const { Component, pageProps, apolloClient } = this.props as any;
 
@@ -13,7 +24,7 @@ class App extends NextApp {
       <Container>
         <ApolloProvider client={apolloClient}>
           <AppLayout>
-            <Component {...pageProps} />
+            <Component {...pageProps} preview={this.state.preview} />
           </AppLayout>
         </ApolloProvider>
       </Container>

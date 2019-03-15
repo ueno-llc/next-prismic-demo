@@ -20,65 +20,66 @@ const Loading = () => (
     <Columns isLoading />
     <Segment />
   </>
-)
-
-const Home = () => (
-  <>
-    <Helmet title="Home" />
-
-    <Query query={homePage} variables={{
-      lang: 'en-us',
-    }}>
-      {({ loading, error, data }) => {
-        if (error) return <div>Error</div>
-        if (loading) return <Loading />
-        const { node: homepage } = get(data, 'allHomepages.edges', [])[0] || {};
-
-        if (!homepage) {
-          return <Error statusCode={404} />
-        }
-
-        return (
-          <>
-            <Helmet
-              title={RichText.asText(homepage.meta_title)}
-              meta={[{ name: 'description', content: RichText.asText(homepage.meta_description)}]}
-            />
-
-            <Hero carousel={homepage.carousel} />
-
-            <Columns
-              heading={RichText.asText(homepage.column_title)}
-              subline={RichText.asText(homepage.column_subheading)}
-            >
-              {homepage.content_columns.map((item: any, i: number) => (
-                <Column
-                  key={i} // eslint-disable-line
-                  title={RichText.asText(item.title)}
-                  text={RichText.render(item.text, linkResolver)}
-                />
-              ))}
-            </Columns>
-
-            {!isEmpty(homepage.featured_articles) && (
-              <Articles
-                title={RichText.asText(homepage.articles_title)}
-                subheading={RichText.asText(homepage.articles_subheading)}
-                articles={homepage.featured_articles}
-                show={4}
-              />
-            )}
-
-            <Cta>
-              <p>Want to talk more.</p>
-              <Button to="/contact" large>Contact us</Button>
-            </Cta>
-          </>
-        )
-      }}
-    </Query>
-  </>
 );
 
-export default Home;
+const Home = () => {
+  return (
+    <>
+      <Helmet title="Home" />
 
+      <Query query={homePage} variables={{
+        lang: 'en-us',
+      }}>
+        {({ loading, error, data }) => {
+          if (error) { return <div>Error</div>; }
+          if (loading) { return <Loading />; }
+          const { node: homepage } = get(data, 'allHomepages.edges', [])[0] || {};
+
+          if (!homepage) {
+            return <Error statusCode={404} />;
+          }
+
+          return (
+            <>
+              <Helmet
+                title={RichText.asText(homepage.meta_title)}
+                meta={[{ name: 'description', content: RichText.asText(homepage.meta_description)}]}
+              />
+
+              <Hero carousel={homepage.carousel} />
+
+              <Columns
+                heading={RichText.asText(homepage.column_title)}
+                subline={RichText.asText(homepage.column_subheading)}
+              >
+                {homepage.content_columns.map((item: any, i: number) => (
+                  <Column
+                    key={i} // eslint-disable-line
+                    title={RichText.asText(item.title)}
+                    text={RichText.render(item.text, linkResolver)}
+                  />
+                ))}
+              </Columns>
+
+              {!isEmpty(homepage.featured_articles) && (
+                <Articles
+                  title={RichText.asText(homepage.articles_title)}
+                  subheading={RichText.asText(homepage.articles_subheading)}
+                  articles={homepage.featured_articles}
+                  show={4}
+                />
+              )}
+
+              <Cta>
+                <p>Want to talk more.</p>
+                <Button to="/contact" large>Contact us</Button>
+              </Cta>
+            </>
+          );
+        }}
+      </Query>
+    </>
+  );
+};
+
+export default Home;

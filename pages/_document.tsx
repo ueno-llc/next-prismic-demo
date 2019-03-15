@@ -4,13 +4,15 @@ import { config } from 'utils/config';
 
 interface IProps {
   isProduction: boolean;
+  isPreview: boolean;
 }
 
 export default class MyDocument extends Document<IProps> {
   static async getInitialProps(ctx: NextDocumentContext) {
     const isProduction = process.env.NODE_ENV === 'production';
+    const isPreview = !isProduction || process.env.PRISMIC_PREVIEW;
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps, isProduction };
+    return { ...initialProps, isProduction, isPreview };
   }
 
   setPrismic() {
@@ -19,19 +21,19 @@ export default class MyDocument extends Document<IProps> {
         window.prismic = {
           endpoint: '${config.prismicApi}'
         }
-      `
+      `,
     };
   }
 
   render() {
-    const { isProduction } = this.props;
+    const { isPreview } = this.props;
     return (
       <html>
         <Head />
         <body>
           <Main />
           <NextScript />
-          {!isProduction && (
+          {isPreview && (
             <Fragment>
               <script dangerouslySetInnerHTML={this.setPrismic()} />
               <script

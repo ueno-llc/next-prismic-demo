@@ -7,6 +7,21 @@ function linkResolver(doc) {
     return doc.url;
   }
 
+  if (doc.type) {
+    switch (doc.type) {
+      case 'homepage':
+      return '/';
+      case 'about':
+        return '/about';
+      case 'article':
+        return `/articles/${doc.uid}`;
+      case 'product':
+        return `/products/${doc.uid}`;
+      case 'custom_page':
+        return `/${doc.uid}`;
+    }
+  }
+
   if (doc.__typename) {
     switch (doc.__typename) {
       case 'Homepage':

@@ -95,8 +95,6 @@ const nextConfig = {
       '/products': { page: '/products' },
     }, ['/article', '/product', '/index', '/page']);
 
-    console.log(mapping);
-
     return mapping;
   },
 
