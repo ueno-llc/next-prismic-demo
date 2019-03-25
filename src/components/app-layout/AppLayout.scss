@@ -1,7 +1,7 @@
-@import '~styles/config';
+@import '../../styles/config.scss';
 
 :global {
-  @import '~styles/base';
+  @import '../../styles/base.scss';
 }
 
 .layout {
